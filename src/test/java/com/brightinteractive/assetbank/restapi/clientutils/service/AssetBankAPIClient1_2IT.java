@@ -1,27 +1,20 @@
 package com.brightinteractive.assetbank.restapi.clientutils.service;
 
-import java.util.Collection;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.brightinteractive.assetbank.restapi.representations.CategoryRepr;
 
 
 
 public class AssetBankAPIClient1_2IT 
 {
-	private static final String TEST_ASSET_BANK_URL = "http://localhost:8080/asset-bank-current/rest/";
+	//private static final String TEST_ASSET_BANK_URL = "http://localhost:8080/asset-bank-current/rest/";
 
-	private AssetBankAPIClient1_2 apiClient;
+	//private AssetBankAPIClient1_2 apiClient;
 	
 	@Before
 	public void setUp()
 	{
-		apiClient = new AssetBankAPIClient1_2(TEST_ASSET_BANK_URL);
+		//apiClient = new AssetBankAPIClient1_2(TEST_ASSET_BANK_URL);
 	}
 	
 	
@@ -33,7 +26,7 @@ public class AssetBankAPIClient1_2IT
 	}
 
 	
-	@Test
+	/*@Test
 	public void findChildCategoriesWhereParentDoesntExist()
 	{
 		//get all categories from the Asset Bank api..
@@ -50,7 +43,7 @@ public class AssetBankAPIClient1_2IT
 		//poll the api with that id
 		Collection<CategoryRepr> matchingCategories = apiClient.findCategories(testCategoryId, -1);
 		Assert.assertTrue(matchingCategories.isEmpty());				
-	}
+	}*/
 	
 	/*@Test(expected = RuntimeException.class)
 	public void findUserVisibleCategoriesWhereUserDoesntExist()
