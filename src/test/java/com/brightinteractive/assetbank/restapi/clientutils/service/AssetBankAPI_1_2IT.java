@@ -26,9 +26,9 @@ public class AssetBankAPI_1_2IT
 	private static final long ACCESS_LEVEL_PARENT_WITH_NO_CHILDREN = 35;
 	private static final long ACCESS_LEVEL_PARENT_WITH_SINGLE_CHILD = 36;
 	private static final long ACCESS_LEVEL_PARENT_WITH_MULTIPLE_CHILDREN = 37;
-	private static final long ACCESS_LEVEL_CONTAINING_NO_ASSETS = 1;
-	private static final long ACCESS_LEVEL_CONTAINING_SINGLE_ASSET = 1;
-	private static final long ACCESS_LEVEL_CONTAINING_MULTIPLE_ASSETS = 1;
+	private static final long ACCESS_LEVEL_CONTAINING_NO_ASSETS = 42;
+	private static final long ACCESS_LEVEL_CONTAINING_SINGLE_ASSET = 43;
+	private static final long ACCESS_LEVEL_CONTAINING_MULTIPLE_ASSETS = 44;
 	private static final String ORIGINAL_FILENAME_NOT_MATCHED = "xcnhiow2mcfi9w9e39e3.gif";
 	private static final String ORIGINAL_FILENAME_MATCHES_ASSET = "rest_api_test.gif";
 	
