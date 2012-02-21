@@ -14,7 +14,8 @@ import com.brightinteractive.assetbank.restapi.representations.CategoryRepr;
 
 public class AssetBankAPIClient1_2IT 
 {
-	private static final String TEST_ASSET_BANK_URL = "http://localhost:8080/asset-bank-current/rest";
+	private static final String TEST_ASSET_BANK_URL = "http://192.168.1.243:8080/asset-bank/rest";
+	//private static final String TEST_ASSET_BANK_URL = "http://localhost:8080/asset-bank-current/rest";
 	private static final String NOT_ASSET_BANK_URL = "this-is-not-an-asset-bank";
 	private AssetBankAPIClient1_2 apiClient;
 	
@@ -66,7 +67,11 @@ public class AssetBankAPIClient1_2IT
 	}
 	
 	//findAssetsWithEmptySearchCriteria
-	//findAssetsWithSearchCriteriaThatMatchesNoAssets
-	//findAssetsWithSearchCriteriaThatMatchesSingleAsset
-	//findAssetsWithSearchCriteriaThatMatchesMultipleAssets
+	//findAssetsWithAccessLevelThatMatchesNoAssets
+	//findAssetsWithAccessLevelThatMatchesSingleAsset
+	//findAssetsWithAccessLevelThatMatchesMultipleAssets
+	//findAssetsWithOriginalFilenameThatMatchesNoAssets
+	//findAssetsWithOriginalFilenameThatMatchesSingleAssets
+	//findAssetsWithOriginalFilenameThatMatchesMultipleAssets
+	//findAssetsWithFullyPopulatedSearchCriteria
 }
