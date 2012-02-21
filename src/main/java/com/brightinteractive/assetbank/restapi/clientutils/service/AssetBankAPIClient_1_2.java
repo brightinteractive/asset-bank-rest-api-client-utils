@@ -12,17 +12,15 @@ public class AssetBankAPIClient_1_2
 {
 	private RootRepr.RootServices_v_1_2 assetBankAPI;
 	private Client clientInstance = null;
-	private String abRootUrl = null;
 	
 	
 	public AssetBankAPIClient_1_2 (String abRootUrl)
 	{
-		this.abRootUrl = abRootUrl;
-		initAPI();
+		initAPI(abRootUrl);
 	}
 	
 	
-	private void initAPI ()
+	private void initAPI (String abRootUrl)
 	{
 		if (assetBankAPI==null)
 		{

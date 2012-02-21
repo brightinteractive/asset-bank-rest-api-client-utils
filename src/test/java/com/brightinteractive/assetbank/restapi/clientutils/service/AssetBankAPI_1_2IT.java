@@ -15,10 +15,22 @@ import com.brightinteractive.assetbank.restapi.representations.CategoryRepr;
 
 public class AssetBankAPI_1_2IT 
 {
-	private static final String TEST_ASSET_BANK_URL = "http://192.168.1.243:8080/asset-bank/rest";
-	//private static final String TEST_ASSET_BANK_URL = "http://localhost:8080/asset-bank-current/rest";
+	private static final String TEST_ASSET_BANK_URL = "http://192.168.1.16:8180/asset-bank-mysql-trunk/rest";
 	private static final String NOT_ASSET_BANK_URL = "this-is-not-an-asset-bank";
 	private AssetBankAPI_1_2 apiClient;
+	
+	//Test data ids etc...
+	private static final long CATEGORY_PARENT_WITH_NO_CHILDREN = 27;
+	private static final long CATEGORY_PARENT_WITH_SINGLE_CHILD = 28;
+	private static final long CATEGORY_PARENT_WITH_MULTIPLE_CHILDREN = 29;
+	private static final long ACCESS_LEVEL_PARENT_WITH_NO_CHILDREN = 35;
+	private static final long ACCESS_LEVEL_PARENT_WITH_SINGLE_CHILD = 36;
+	private static final long ACCESS_LEVEL_PARENT_WITH_MULTIPLE_CHILDREN = 37;
+	private static final long ACCESS_LEVEL_CONTAINING_NO_ASSETS = 1;
+	private static final long ACCESS_LEVEL_CONTAINING_SINGLE_ASSET = 1;
+	private static final long ACCESS_LEVEL_CONTAINING_MULTIPLE_ASSETS = 1;
+	private static final String ORIGINAL_FILENAME_NOT_MATCHED = "xcnhiow2mcfi9w9e39e3.gif";
+	private static final String ORIGINAL_FILENAME_MATCHES_ASSET = "rest_api_test.gif";
 	
 	@Before
 	public void setUp()
@@ -117,6 +129,5 @@ public class AssetBankAPI_1_2IT
 	
 	//findAssetsWithOriginalFilenameThatMatchesNoAssets	
 	//findAssetsWithOriginalFilenameThatMatchesSingleAssets
-	//findAssetsWithOriginalFilenameThatMatchesMultipleAssets
 	//findAssetsWithFullyPopulatedSearchCriteria
 }

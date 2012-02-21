@@ -16,6 +16,7 @@ import com.sun.jersey.api.client.WebResource;
 //TODO Restructure to prepare for potential 1.3 client (refactor common stuff)
 public class AssetBankAPI_1_2 
 {
+	
 	private AssetBankAPIClient_1_2 client = null;
 		
 	public AssetBankAPI_1_2 (String abRootUrl)
@@ -42,6 +43,7 @@ public class AssetBankAPI_1_2
 	}
 	
 	
+	
 	//TODO Add the userId parameter supported by the accessLevelSearch resource to this method (and associated tests)...
 	public Collection<AccessLevelRepr> findAccessLevels (long parentId)
 	{
@@ -59,6 +61,7 @@ public class AssetBankAPI_1_2
 		return alReprs;
 	}
 		
+	
 		
 	public List<LightweightAssetRepr> findAssets (AssetSearchCriteria criteria)
 	{
