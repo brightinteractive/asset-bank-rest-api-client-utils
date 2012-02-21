@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ws.rs.core.MediaType;
 
 import com.brightinteractive.assetbank.restapi.clientutils.bean.AssetSearchCriteria;
+import com.brightinteractive.assetbank.restapi.clientutils.client.AssetBankAPIClient_1_2;
 import com.brightinteractive.assetbank.restapi.representations.AccessLevelRepr;
 import com.brightinteractive.assetbank.restapi.representations.CategoryRepr;
 import com.brightinteractive.assetbank.restapi.representations.LightweightAssetRepr;

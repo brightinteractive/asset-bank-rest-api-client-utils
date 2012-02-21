@@ -1,4 +1,4 @@
-package com.brightinteractive.assetbank.restapi.clientutils.service;
+package com.brightinteractive.assetbank.restapi.clientutils.client;
 
 import com.brightinteractive.assetbank.restapi.representations.RootRepr;
 import com.sun.jersey.api.client.Client;

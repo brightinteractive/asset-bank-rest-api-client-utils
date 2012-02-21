@@ -1,15 +1,18 @@
 package com.brightinteractive.assetbank.restapi.clientutils.service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.brightinteractive.assetbank.restapi.clientutils.bean.AssetSearchCriteria;
 import com.brightinteractive.assetbank.restapi.representations.AccessLevelRepr;
 import com.brightinteractive.assetbank.restapi.representations.CategoryRepr;
+import com.brightinteractive.assetbank.restapi.representations.LightweightAssetRepr;
 
 
 
@@ -117,17 +120,111 @@ public class AssetBankAPI_1_2IT
 	}
 	
 	
-	//findChildCategoriesWhereParentHasNoChildren
-	//findChildCategoriesForParentThatHasSingleChild
-	//findChildCategoriesForParentThatHasMultipleChildren
-	//findChildAccessLevelWhereParentHasNoChildren
-	//findChildAccessLevelForParentThatHasSingleChild
-	//findChildAccessLevelForParentThatHasMultipleChildren
-	//findAssetsWithAccessLevelThatMatchesNoAssets
-	//findAssetsWithAccessLevelThatMatchesSingleAsset
-	//findAssetsWithAccessLevelThatMatchesMultipleAssets
+	@Test
+	public void findChildCategoriesWhereParentHasNoChildren ()
+	{
+		Collection<CategoryRepr> categories = apiClient.findCategories(CATEGORY_PARENT_WITH_NO_CHILDREN);
+		Assert.assertEquals(categories.size(), 0);
+	}
 	
-	//findAssetsWithOriginalFilenameThatMatchesNoAssets	
-	//findAssetsWithOriginalFilenameThatMatchesSingleAssets
-	//findAssetsWithFullyPopulatedSearchCriteria
+	
+	@Test
+	public void findChildCategoriesForParentThatHasSingleChild ()
+	{
+		Collection<CategoryRepr> categories = apiClient.findCategories(CATEGORY_PARENT_WITH_SINGLE_CHILD);
+		Assert.assertEquals(categories.size(), 1);
+	}
+	
+	
+	@Test
+	public void findChildCategoriesForParentThatHasMultipleChildren ()
+	{
+		Collection<CategoryRepr> categories = apiClient.findCategories(CATEGORY_PARENT_WITH_MULTIPLE_CHILDREN);
+		Assert.assertTrue(categories.size()>1);
+	}
+	
+	
+	@Test
+	public void findChildAccessLevelsWhereParentHasNoChildren ()
+	{
+		Collection<AccessLevelRepr> als = apiClient.findAccessLevels(ACCESS_LEVEL_PARENT_WITH_NO_CHILDREN);
+		Assert.assertEquals(als.size(), 0);
+	}
+	
+	
+	@Test
+	public void findChildAccessLevelsForParentThatHasSingleChild ()
+	{
+		Collection<AccessLevelRepr> als = apiClient.findAccessLevels(ACCESS_LEVEL_PARENT_WITH_SINGLE_CHILD);
+		Assert.assertEquals(als.size(), 1);
+	}
+	
+	
+	@Test
+	public void findChildAccessLevelsForParentThatHasMultipleChildren ()
+	{
+		Collection<AccessLevelRepr> als = apiClient.findAccessLevels(ACCESS_LEVEL_PARENT_WITH_MULTIPLE_CHILDREN);
+		Assert.assertTrue(als.size()>1);
+	}
+	
+	
+	
+	@Test
+	public void findAssetsWithAccessLevelThatMatchesNoAssets ()
+	{
+		AssetSearchCriteria criteria = new AssetSearchCriteria();
+		criteria.addAccessLevelId(ACCESS_LEVEL_CONTAINING_NO_ASSETS);
+		List<LightweightAssetRepr> assets = apiClient.findAssets(criteria);
+		Assert.assertEquals(assets.size(), 0);
+	}
+	
+	
+	@Test
+	public void findAssetsWithAccessLevelThatMatchesSingleAssets ()
+	{
+		AssetSearchCriteria criteria = new AssetSearchCriteria();
+		criteria.addAccessLevelId(ACCESS_LEVEL_CONTAINING_SINGLE_ASSET);
+		List<LightweightAssetRepr> assets = apiClient.findAssets(criteria);
+		Assert.assertEquals(assets.size(), 1);
+	}
+	
+	@Test
+	public void findAssetsWithAccessLevelThatMatchesMultipleAssets ()
+	{
+		AssetSearchCriteria criteria = new AssetSearchCriteria();
+		criteria.addAccessLevelId(ACCESS_LEVEL_CONTAINING_MULTIPLE_ASSETS);
+		List<LightweightAssetRepr> assets = apiClient.findAssets(criteria);
+		Assert.assertTrue(assets.size()>1);
+	}
+	
+	
+	@Test
+	public void findAssetsWithOriginalFilenameThatMatchesNoAssets ()
+	{
+		AssetSearchCriteria criteria = new AssetSearchCriteria();
+		criteria.setOriginalFilename(ORIGINAL_FILENAME_NOT_MATCHED);
+		List<LightweightAssetRepr> assets = apiClient.findAssets(criteria);
+		Assert.assertEquals(assets.size(), 0);
+	}
+	
+	
+	@Test
+	public void findAssetsWithOriginalFilenameThatMatchesSingleAssets ()
+	{
+		AssetSearchCriteria criteria = new AssetSearchCriteria();
+		criteria.setOriginalFilename(ORIGINAL_FILENAME_MATCHES_ASSET);
+		List<LightweightAssetRepr> assets = apiClient.findAssets(criteria);
+		Assert.assertTrue(assets.size()>0);
+	}
+	
+	
+	@Test
+	public void findAssetsWithFullyPopulatedSearchCriteria ()
+	{
+		AssetSearchCriteria criteria = new AssetSearchCriteria();
+		criteria.setOriginalFilename(ORIGINAL_FILENAME_MATCHES_ASSET);
+		criteria.addAccessLevelId(ACCESS_LEVEL_CONTAINING_MULTIPLE_ASSETS);
+		List<LightweightAssetRepr> assets = apiClient.findAssets(criteria);
+		Assert.assertTrue(assets.size()>0);
+	}
 }
