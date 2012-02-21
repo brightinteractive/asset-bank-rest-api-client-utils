@@ -1,36 +1,43 @@
 package com.brightinteractive.assetbank.restapi.clientutils.service;
 
+import java.util.Collection;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import com.brightinteractive.assetbank.restapi.clientutils.bean.AssetSearchCriteria;
+import com.brightinteractive.assetbank.restapi.representations.CategoryRepr;
 
 
 
 public class AssetBankAPIClient1_2IT 
 {
-	//private static final String TEST_ASSET_BANK_URL = "http://localhost:8080/asset-bank-current/rest/";
-
-	//private AssetBankAPIClient1_2 apiClient;
+	private static final String TEST_ASSET_BANK_URL = "http://localhost:8080/asset-bank-current/rest";
+	private static final String NOT_ASSET_BANK_URL = "this-is-not-an-asset-bank";
+	private AssetBankAPIClient1_2 apiClient;
 	
 	@Before
 	public void setUp()
 	{
-		//apiClient = new AssetBankAPIClient1_2(TEST_ASSET_BANK_URL);
+		apiClient = new AssetBankAPIClient1_2(TEST_ASSET_BANK_URL);
 	}
 	
 	
 	@Test(expected = RuntimeException.class)
 	public void findCategoriesWhereUrlDoesNotPointToAnAssetBank()
 	{
-		AssetBankAPIClient1_2 invalidApiClient = new AssetBankAPIClient1_2("this-is-not-an-asset-bank");
-		invalidApiClient.findCategories(1, 1);
+		AssetBankAPIClient1_2 invalidApiClient = new AssetBankAPIClient1_2(NOT_ASSET_BANK_URL);
+		invalidApiClient.findCategories(1);
 	}
 
 	
-	/*@Test
+	@Test(expected = RuntimeException.class)
 	public void findChildCategoriesWhereParentDoesntExist()
 	{
 		//get all categories from the Asset Bank api..
-		Collection<CategoryRepr> categories = apiClient.findCategories(-1, -1);
+		Collection<CategoryRepr> categories = apiClient.findCategories(-1);
 		SortedSet<Long> catIds = new TreeSet<Long>();
 		for (CategoryRepr category : categories)
 		{
@@ -41,24 +48,23 @@ public class AssetBankAPIClient1_2IT
 		long testCategoryId = catIds.last()+999;
 		
 		//poll the api with that id
-		Collection<CategoryRepr> matchingCategories = apiClient.findCategories(testCategoryId, -1);
-		Assert.assertTrue(matchingCategories.isEmpty());				
-	}*/
+		apiClient.findCategories(testCategoryId);
+	}
 	
-	/*@Test(expected = RuntimeException.class)
-	public void findUserVisibleCategoriesWhereUserDoesntExist()
-	{
-	}*/
 	
 	//findChildCategoriesWhereParentHasNoChildren
 	//findChildCategoriesForParentThatHasSingleChild
 	//findChildCategoriesForParentThatHasMultipleChildren
-	//findUserVisibleCategoriesWhereUserCanSeeNoCategories
-	//findUserVisibleCategoriesForUserThatCanSeeSingleCategory
-	//findUserVisibleCategoriesForUserThatCanSeeMultipleCategories
-	//findUserVisibleCategoriesForParent / No / Single / Multiple
 	
-	//findAssetsWhereUrlDoesNotPointToAnAssetBank
+	@Test(expected = RuntimeException.class)
+	public void findAssetsWhereUrlDoesNotPointToAnAssetBank ()
+	{
+		AssetBankAPIClient1_2 invalidApiClient = new AssetBankAPIClient1_2(NOT_ASSET_BANK_URL);
+		AssetSearchCriteria criteria = new AssetSearchCriteria();
+		criteria.addAccessLevelId(1);
+		invalidApiClient.findAssets(criteria);
+	}
+	
 	//findAssetsWithEmptySearchCriteria
 	//findAssetsWithSearchCriteriaThatMatchesNoAssets
 	//findAssetsWithSearchCriteriaThatMatchesSingleAsset
