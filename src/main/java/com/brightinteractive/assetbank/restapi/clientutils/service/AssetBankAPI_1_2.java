@@ -14,7 +14,6 @@ import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 
 //TODO Javadoc...
-//TODO Restructure to prepare for potential 1.3 client (refactor common stuff)
 public class AssetBankAPI_1_2 
 {
 	
