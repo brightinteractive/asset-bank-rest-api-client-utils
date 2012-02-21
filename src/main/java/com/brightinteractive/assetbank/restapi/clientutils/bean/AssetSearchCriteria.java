@@ -76,4 +76,39 @@ public class AssetSearchCriteria
 		}
 		return query;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((accessLevelIds == null) ? 0 : accessLevelIds.hashCode());
+		result = prime
+				* result
+				+ ((originalFilename == null) ? 0 : originalFilename.hashCode());
+		return result;
+	}
+	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AssetSearchCriteria other = (AssetSearchCriteria) obj;
+		if (accessLevelIds == null) {
+			if (other.accessLevelIds != null)
+				return false;
+		} else if (!accessLevelIds.equals(other.accessLevelIds))
+			return false;
+		if (originalFilename == null) {
+			if (other.originalFilename != null)
+				return false;
+		} else if (!originalFilename.equals(other.originalFilename))
+			return false;
+		return true;
+	}
 }
