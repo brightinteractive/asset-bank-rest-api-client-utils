@@ -6,8 +6,7 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.core.util.FeaturesAndProperties;
 
-//TODO Javadoc...
-//TODO Restructure to prepare for potential 1.3 client (refactor common stuff)
+//TODO Restructure to prepare for potential 1.3 client (refactor common stuff?)
 public class AssetBankAPIClient_1_2 
 {
 	private RootRepr.RootServices_v_1_2 assetBankAPI;
