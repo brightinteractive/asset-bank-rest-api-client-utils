@@ -11,6 +11,8 @@ import org.junit.Test;
 
 import com.brightinteractive.assetbank.restapi.clientutils.bean.AssetSearchCriteria;
 import com.brightinteractive.assetbank.restapi.representations.AccessLevelRepr;
+import com.brightinteractive.assetbank.restapi.representations.AssetRepr;
+import com.brightinteractive.assetbank.restapi.representations.AttributeValueRepr;
 import com.brightinteractive.assetbank.restapi.representations.CategoryRepr;
 import com.brightinteractive.assetbank.restapi.representations.LightweightAssetRepr;
 
@@ -34,6 +36,9 @@ public class AssetBankAPI_1_2IT
 	private static final long ACCESS_LEVEL_CONTAINING_MULTIPLE_ASSETS = 44;
 	private static final String ORIGINAL_FILENAME_NOT_MATCHED = "xcnhiow2mcfi9w9e39e3.gif";
 	private static final String ORIGINAL_FILENAME_MATCHES_ASSET = "rest_api_test.gif";
+	private static final long INVALID_ASSET_ID = -99;
+	private static final long VALID_ASSET_ID = 295;
+	private static final long ATTRIBUTE_ID = 2;
 	
 	@Before
 	public void setUp()
@@ -226,5 +231,28 @@ public class AssetBankAPI_1_2IT
 		criteria.addAccessLevelId(ACCESS_LEVEL_CONTAINING_MULTIPLE_ASSETS);
 		List<LightweightAssetRepr> assets = apiClient.findAssets(criteria);
 		Assert.assertTrue(assets.size()>0);
+	}
+	
+	
+	@Test(expected = RuntimeException.class)
+	public void getAssetWithInvalidId ()
+	{
+		apiClient.getAsset(INVALID_ASSET_ID);
+	}
+	
+	@Test
+	public void getAssetWithValidId ()
+	{
+		AssetRepr repr = apiClient.getAsset(VALID_ASSET_ID);
+		Assert.assertNotNull(repr);
+		long id = -1;
+		for (AttributeValueRepr attVal : repr.attributes)
+		{
+			if (attVal.id == ATTRIBUTE_ID)
+			{
+				id = Long.parseLong(attVal.value);
+			}
+		}
+		Assert.assertEquals(VALID_ASSET_ID, id);
 	}
 }

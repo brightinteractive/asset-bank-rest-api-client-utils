@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 import com.brightinteractive.assetbank.restapi.clientutils.bean.AssetSearchCriteria;
 import com.brightinteractive.assetbank.restapi.clientutils.client.AssetBankAPIClient_1_2;
 import com.brightinteractive.assetbank.restapi.representations.AccessLevelRepr;
+import com.brightinteractive.assetbank.restapi.representations.AssetRepr;
 import com.brightinteractive.assetbank.restapi.representations.CategoryRepr;
 import com.brightinteractive.assetbank.restapi.representations.LightweightAssetRepr;
 import com.sun.jersey.api.client.GenericType;
@@ -39,6 +40,8 @@ import com.sun.jersey.api.client.WebResource;
  * 					   AssetSearchCriteria object).
  * 					   results are returned as a list of LightweightAssetRepr objects ordered according to the
  * 					   default search ordering of the Asset Bank in question.
+ * 
+ *  - getAsset	- get a full asset representation from the Asset Bank API
  * 
  * 
  * @author Bright Interactive
@@ -84,12 +87,37 @@ public class AssetBankAPI_1_2
 	
 	
 	
+	public AssetRepr getAsset (long assetId)
+	{
+		WebResource assetSearchResource = client.getClient().resource(client.getRootService().assetsUrl.toString() + "/" + assetId);
+		AssetRepr asset = this.requestGET_XML(assetSearchResource, AssetRepr.class);	
+		return asset;
+	}
+	
+	
+	
 	//============================================
 	//Private util / helper methods....
 	//============================================
 	
 	
 	private <T> T requestGET_XML (WebResource resource, GenericType<T> type)
+	{
+		T reprs;
+		try
+		{
+			reprs = resource.type(MediaType.APPLICATION_XML).get(type);
+		}
+		catch (Exception e)
+		{
+			throw new RuntimeException ("API GET request for XML failed ", e);
+		}
+		
+		return reprs;
+	}
+	
+	
+	private <T> T requestGET_XML (WebResource resource, Class<T> type)
 	{
 		T reprs;
 		try
