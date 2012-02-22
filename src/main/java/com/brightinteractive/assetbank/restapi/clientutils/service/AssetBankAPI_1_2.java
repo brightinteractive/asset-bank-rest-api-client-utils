@@ -1,5 +1,10 @@
 package com.brightinteractive.assetbank.restapi.clientutils.service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.List;
 
@@ -11,6 +16,7 @@ import com.brightinteractive.assetbank.restapi.representations.AccessLevelRepr;
 import com.brightinteractive.assetbank.restapi.representations.AssetRepr;
 import com.brightinteractive.assetbank.restapi.representations.CategoryRepr;
 import com.brightinteractive.assetbank.restapi.representations.LightweightAssetRepr;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 
@@ -42,6 +48,8 @@ import com.sun.jersey.api.client.WebResource;
  * 					   default search ordering of the Asset Bank in question.
  * 
  *  - getAsset	- get a full asset representation from the Asset Bank API
+ *  
+ *  - getAssetFile - request that the given asset's file is saved to the given file location. Returns a file object
  * 
  * 
  * @author Bright Interactive
@@ -89,9 +97,41 @@ public class AssetBankAPI_1_2
 	
 	public AssetRepr getAsset (long assetId)
 	{
-		WebResource assetSearchResource = client.getClient().resource(client.getRootService().assetsUrl.toString() + "/" + assetId);
-		AssetRepr asset = this.requestGET_XML(assetSearchResource, AssetRepr.class);	
+		WebResource assetResource = client.getClient().resource(client.getRootService().assetsUrl.toString() + "/" + assetId);
+		AssetRepr asset = this.requestGET_XML(assetResource, AssetRepr.class);	
 		return asset;
+	}
+	
+	
+	public File getAssetFile (long assetId, String assetFilePath)
+	{
+		WebResource assetContentResource = client.getClient().resource(client.getRootService().assetsUrl.toString() + "/" + assetId + "/content");
+		ClientResponse response = this.requestGET(assetContentResource);	
+		InputStream stream = response.getEntity(InputStream.class);
+		File file = new File(assetFilePath);
+		
+		try
+		{
+			//read the response stream to the given file...
+			OutputStream out=new FileOutputStream(file);
+			
+			byte[] buffer = new byte[1024];
+			int length;
+			
+			while((length=stream.read(buffer))>0)
+			{
+			  out.write(buffer,0,length);
+			}
+			
+			out.close();
+			stream.close();
+		}
+		catch (IOException e)
+		{
+			throw new RuntimeException ("Unable to save asset file ", e);
+		}
+		
+		return file;
 	}
 	
 	
@@ -130,5 +170,25 @@ public class AssetBankAPI_1_2
 		}
 		
 		return reprs;
+	}
+	
+	private ClientResponse requestGET (WebResource resource)
+	{
+		ClientResponse response;
+		try
+		{
+			response = resource.get(ClientResponse.class);
+		}
+		catch (Exception e)
+		{
+			throw new RuntimeException ("API GET request failed ", e);
+		}
+		
+		if (response.getStatus() > 300)
+		{
+			throw new RuntimeException ("API GET request failed. Response code "+response.getStatus());
+		}
+		
+		return response;
 	}
 }

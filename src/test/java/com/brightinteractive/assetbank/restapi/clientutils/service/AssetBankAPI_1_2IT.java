@@ -1,5 +1,6 @@
 package com.brightinteractive.assetbank.restapi.clientutils.service;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.List;
 import java.util.SortedSet;
@@ -20,8 +21,6 @@ import com.brightinteractive.assetbank.restapi.representations.LightweightAssetR
 
 public class AssetBankAPI_1_2IT 
 {
-	private static final String TEST_ASSET_BANK_URL = "http://192.168.1.16:8180/asset-bank-mysql-trunk/rest";
-	private static final String NOT_ASSET_BANK_URL = "this-is-not-an-asset-bank";
 	private AssetBankAPI_1_2 apiClient;
 	
 	//Test data ids etc...
@@ -35,10 +34,17 @@ public class AssetBankAPI_1_2IT
 	private static final long ACCESS_LEVEL_CONTAINING_SINGLE_ASSET = 43;
 	private static final long ACCESS_LEVEL_CONTAINING_MULTIPLE_ASSETS = 44;
 	private static final String ORIGINAL_FILENAME_NOT_MATCHED = "xcnhiow2mcfi9w9e39e3.gif";
-	private static final String ORIGINAL_FILENAME_MATCHES_ASSET = "rest_api_test.gif";
 	private static final long INVALID_ASSET_ID = -99;
-	private static final long VALID_ASSET_ID = 295;
 	private static final long ATTRIBUTE_ID = 2;
+	
+	private static final long VALID_ASSET_ID = 295;
+	private static final long VALID_ASSET_BYTE_SIZE = 3286;
+	private static final String VALID_ASSET_FILENAME = "rest_api_test.gif";
+	
+	private static final String TEST_ASSET_BANK_URL = "http://192.168.1.16:8180/asset-bank-mysql-trunk/rest";
+	private static final String NOT_ASSET_BANK_URL = "this-is-not-an-asset-bank";
+	private static final String VALID_FILE_LOCATION = VALID_ASSET_FILENAME;
+	
 	
 	@Before
 	public void setUp()
@@ -217,7 +223,7 @@ public class AssetBankAPI_1_2IT
 	public void findAssetsWithOriginalFilenameThatMatchesSingleAssets ()
 	{
 		AssetSearchCriteria criteria = new AssetSearchCriteria();
-		criteria.setOriginalFilename(ORIGINAL_FILENAME_MATCHES_ASSET);
+		criteria.setOriginalFilename(VALID_ASSET_FILENAME);
 		List<LightweightAssetRepr> assets = apiClient.findAssets(criteria);
 		Assert.assertTrue(assets.size()>0);
 	}
@@ -227,7 +233,7 @@ public class AssetBankAPI_1_2IT
 	public void findAssetsWithFullyPopulatedSearchCriteria ()
 	{
 		AssetSearchCriteria criteria = new AssetSearchCriteria();
-		criteria.setOriginalFilename(ORIGINAL_FILENAME_MATCHES_ASSET);
+		criteria.setOriginalFilename(VALID_ASSET_FILENAME);
 		criteria.addAccessLevelId(ACCESS_LEVEL_CONTAINING_MULTIPLE_ASSETS);
 		List<LightweightAssetRepr> assets = apiClient.findAssets(criteria);
 		Assert.assertTrue(assets.size()>0);
@@ -254,5 +260,26 @@ public class AssetBankAPI_1_2IT
 			}
 		}
 		Assert.assertEquals(VALID_ASSET_ID, id);
+	}
+	
+	
+	@Test(expected = RuntimeException.class)
+	public void getAssetFileWithInvalidIdValidLocation()
+	{
+		apiClient.getAssetFile(INVALID_ASSET_ID, VALID_FILE_LOCATION);
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void getAssetFileWithValidIdInvalidLocation()
+	{
+		String filelocation = "";
+		apiClient.getAssetFile(VALID_ASSET_ID, filelocation);
+	}
+	
+	@Test
+	public void getAssetFileWithValidIdValidLocation()
+	{
+		File file = apiClient.getAssetFile(VALID_ASSET_ID, VALID_FILE_LOCATION);
+		Assert.assertEquals(VALID_ASSET_BYTE_SIZE, file.length());
 	}
 }
