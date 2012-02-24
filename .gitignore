@@ -1,7 +1,8 @@
 # Ignore IntelliJ workspace files.
 # These contain developer-specific state such as which windows are open
 # in IntelliJ so they should never be checked in.
-.idea
+/.idea/workspace.xml
+/.idea/dictionaries
 .project
 .settings
 .classpath
@@ -9,4 +10,3 @@
 /logs
 # Maven build output directory
 /target
-*.iml
