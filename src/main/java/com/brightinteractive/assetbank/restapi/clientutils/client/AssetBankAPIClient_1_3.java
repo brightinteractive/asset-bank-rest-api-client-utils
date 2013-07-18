@@ -4,13 +4,13 @@ import com.brightinteractive.assetbank.restapi.clientutils.util.ClientUtils;
 import com.brightinteractive.assetbank.restapi.representations.RootRepr;
 import com.sun.jersey.api.client.Client;
 
-public class AssetBankAPIClient_1_2 
+public class AssetBankAPIClient_1_3 
 {
-	private RootRepr.RootServices_v_1_2 assetBankAPI;
+	private RootRepr.RootServices_v_1_3 assetBankAPI;
 	private Client clientInstance = null;
 	
 	
-	public AssetBankAPIClient_1_2 (String abRootUrl)
+	public AssetBankAPIClient_1_3 (String abRootUrl)
 	{
 		initAPI(abRootUrl);
 	}
@@ -22,11 +22,11 @@ public class AssetBankAPIClient_1_2
 		{
 			clientInstance = ClientUtils.getClient();
 			RootRepr assetBankRoot = ClientUtils.getRootReprFromClient(clientInstance, abRootUrl);
-			assetBankAPI = assetBankRoot.api_version_1_2;
+			assetBankAPI = assetBankRoot.api_version_1_3;
 		}
 	}
 	
-	public RootRepr.RootServices_v_1_2 getRootService ()
+	public RootRepr.RootServices_v_1_3 getRootService ()
 	{
 		return this.assetBankAPI;
 	}

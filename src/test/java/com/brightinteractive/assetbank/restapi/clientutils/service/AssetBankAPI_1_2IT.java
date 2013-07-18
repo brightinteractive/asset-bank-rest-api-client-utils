@@ -21,7 +21,7 @@ import com.brightinteractive.assetbank.restapi.representations.LightweightAssetR
 
 public class AssetBankAPI_1_2IT 
 {
-	private AssetBankAPI_1_2 apiClient;
+	private AssetBankAPI apiClient;
 	
 	//Test data ids etc...
 	private static final long CATEGORY_PARENT_WITH_NO_CHILDREN = 27;
@@ -49,7 +49,7 @@ public class AssetBankAPI_1_2IT
 	@Before
 	public void setUp()
 	{
-		apiClient = new AssetBankAPI_1_2(TEST_ASSET_BANK_URL);
+		apiClient = new AssetBankAPI(TEST_ASSET_BANK_URL);
 	}
 	
 	
@@ -57,7 +57,7 @@ public class AssetBankAPI_1_2IT
 	@Test(expected = RuntimeException.class)
 	public void findCategoriesWhereUrlDoesNotPointToAnAssetBank()
 	{
-		AssetBankAPI_1_2 invalidApi = new AssetBankAPI_1_2(NOT_ASSET_BANK_URL);
+		AssetBankAPI invalidApi = new AssetBankAPI(NOT_ASSET_BANK_URL);
 		invalidApi.findCategories(1);
 	}
 
@@ -86,7 +86,7 @@ public class AssetBankAPI_1_2IT
 	@Test(expected = RuntimeException.class)
 	public void findAccessLevelWhereUrlDoesNotPointToAnAssetBank()
 	{
-		AssetBankAPI_1_2 invalidApi = new AssetBankAPI_1_2(NOT_ASSET_BANK_URL);
+		AssetBankAPI invalidApi = new AssetBankAPI(NOT_ASSET_BANK_URL);
 		invalidApi.findAccessLevels(1);
 	}
 
@@ -115,7 +115,7 @@ public class AssetBankAPI_1_2IT
 	@Test(expected = RuntimeException.class)
 	public void findAssetsWhereUrlDoesNotPointToAnAssetBank ()
 	{
-		AssetBankAPI_1_2 invalidApi = new AssetBankAPI_1_2(NOT_ASSET_BANK_URL);
+		AssetBankAPI invalidApi = new AssetBankAPI(NOT_ASSET_BANK_URL);
 		AssetSearchCriteria criteria = new AssetSearchCriteria();
 		criteria.addAccessLevelId(1);
 		invalidApi.findAssets(criteria);

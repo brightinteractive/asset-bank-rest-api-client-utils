@@ -11,7 +11,7 @@ import java.util.List;
 import javax.ws.rs.core.MediaType;
 
 import com.brightinteractive.assetbank.restapi.clientutils.bean.AssetSearchCriteria;
-import com.brightinteractive.assetbank.restapi.clientutils.client.AssetBankAPIClient_1_2;
+import com.brightinteractive.assetbank.restapi.clientutils.client.AssetBankAPIClient_1_3;
 import com.brightinteractive.assetbank.restapi.representations.AccessLevelRepr;
 import com.brightinteractive.assetbank.restapi.representations.AssetRepr;
 import com.brightinteractive.assetbank.restapi.representations.CategoryRepr;
@@ -55,14 +55,14 @@ import com.sun.jersey.api.client.WebResource;
  * @author Bright Interactive
  *
  */
-public class AssetBankAPI_1_2 
+public class AssetBankAPI 
 {
-	private AssetBankAPIClient_1_2 client = null;
+	private AssetBankAPIClient_1_3 client = null;
 	
 	
-	public AssetBankAPI_1_2 (String abRootUrl)
+	public AssetBankAPI (String abRootUrl)
 	{
-		this.client = new AssetBankAPIClient_1_2(abRootUrl);
+		this.client = new AssetBankAPIClient_1_3(abRootUrl);
 	}
 	
 	
