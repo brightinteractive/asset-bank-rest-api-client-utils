@@ -3,9 +3,11 @@
 # in IntelliJ so they should never be checked in.
 /.idea/workspace.xml
 /.idea/dictionaries
+/.idea/*
 .project
 .settings
 .classpath
+*.iml
 
 /logs
 # Maven build output directory
