@@ -75,13 +75,13 @@ public class AssetSearchCriteria
 		
 		if (StringUtils.isNotEmpty(this.originalFilename))
 		{
-			this.addExtraQueryParam(query, PARAM_ORIGINALFILENAME, this.originalFilename);
+			query = this.addExtraQueryParam(query, PARAM_ORIGINALFILENAME, this.originalFilename);
 		}
 		
 		
 		if (userId > 0)
 		{
-			this.addExtraQueryParam(query, PARAM_USERID, String.valueOf(this.userId));
+			query = this.addExtraQueryParam(query, PARAM_USERID, String.valueOf(this.userId));
 		}
 		
 		return query;
