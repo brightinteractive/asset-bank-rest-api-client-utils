@@ -31,11 +31,13 @@ public class AssetSearchCriteria
 	//param name constants for the Asset Bank search..
 	private static final String PARAM_ACCESSLEVELS = "permissionCategoryForm.categoryIds";
 	private static final String PARAM_ORIGINALFILENAME = "filename";
+	private static final String PARAM_USERID = "userId";
 	
 	
 	//member variables for available search criteria values...
 	private Collection<Long> accessLevelIds;
 	private String originalFilename;
+	private long userId = 0;
 	
 	
 	public void setAccessLevelIds (Collection<Long> accessLevelIds)
@@ -57,6 +59,11 @@ public class AssetSearchCriteria
 		this.originalFilename = originalFilename;
 	}
 	
+	public void setUserId (long userId)
+	{
+		this.userId = userId;
+	}
+	
 	
 	public String getQueryString ()
 	{
@@ -68,14 +75,29 @@ public class AssetSearchCriteria
 		
 		if (StringUtils.isNotEmpty(this.originalFilename))
 		{
-			if (StringUtils.isNotEmpty(query))
-			{
-				query += "&";
-			}
-			query += PARAM_ORIGINALFILENAME + "=" + this.originalFilename;
+			this.addExtraQueryParam(query, PARAM_ORIGINALFILENAME, this.originalFilename);
 		}
+		
+		
+		if (userId > 0)
+		{
+			this.addExtraQueryParam(query, PARAM_USERID, String.valueOf(this.userId));
+		}
+		
 		return query;
 	}
+	
+	
+	private String addExtraQueryParam (String query, String paramName, String paramValue)
+	{
+		if (StringUtils.isNotEmpty(query))
+		{
+			query += "&";
+		}
+		query += paramName + "=" + paramValue;
+		return query;
+	}
+	
 
 	@Override
 	public int hashCode() {
